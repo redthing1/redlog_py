@@ -88,6 +88,8 @@ class DefaultFormatter(Formatter):
             padding = self.theme.source_width - len(source_part)
             if padding > 0:
                 parts.append(" " * padding)
+            else:
+                parts.append(" ")
         else:
             parts.append(" " * self.theme.source_width)
 

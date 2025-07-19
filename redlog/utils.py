@@ -42,11 +42,34 @@ def should_use_color() -> bool:
     return hasattr(sys.stderr, 'isatty') and sys.stderr.isatty()
 
 
-def colorize(text: str, color_code: int) -> str:
-    """Apply ANSI color formatting to text."""
-    if not should_use_color() or color_code == 0:
+def colorize(text: str, fg_color: int, bg_color: int = 0) -> str:
+    """Apply ANSI color formatting to text.
+    
+    Args:
+        text: Text to colorize
+        fg_color: Foreground color code (0 for none)
+        bg_color: Background color code (0 for none)
+        
+    Returns:
+        Colorized text or original text if colors disabled
+    """
+    if not should_use_color() or (fg_color == 0 and bg_color == 0):
         return text
-    return f"\033[{color_code}m{text}\033[0m"
+    
+    escape_seq = "\033["
+    codes = []
+    
+    if fg_color != 0:
+        codes.append(str(fg_color))
+    
+    if bg_color != 0:
+        codes.append(str(bg_color))
+    
+    if not codes:
+        return text
+    
+    escape_seq += ";".join(codes) + "m"
+    return f"{escape_seq}{text}\033[0m"
 
 
 def fmt(format_str: str, *args: Any) -> str:

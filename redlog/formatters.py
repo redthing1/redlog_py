@@ -53,6 +53,21 @@ class DefaultFormatter(Formatter):
         }
         return color_map.get(level, Color.WHITE)
     
+    def _level_bg_color(self, level: Level) -> Color:
+        """Get the background color for a specific log level."""
+        color_map = {
+            Level.CRITICAL: self.theme.critical_bg_color,
+            Level.ERROR: self.theme.error_bg_color,
+            Level.WARN: self.theme.warn_bg_color,
+            Level.INFO: self.theme.info_bg_color,
+            Level.VERBOSE: self.theme.verbose_bg_color,
+            Level.TRACE: self.theme.trace_bg_color,
+            Level.DEBUG: self.theme.debug_bg_color,
+            Level.PEDANTIC: self.theme.pedantic_bg_color,
+            Level.ANNOYING: self.theme.annoying_bg_color,
+        }
+        return color_map.get(level, Color.NONE)
+    
     def _get_max_level_text_width(self) -> int:
         """Get the maximum width needed for level text with brackets."""
         max_width = 0
@@ -68,7 +83,7 @@ class DefaultFormatter(Formatter):
         # Source component with fixed width padding
         if entry.source:
             source_part = f"[{entry.source}]"
-            parts.append(colorize(source_part, self.theme.source_color))
+            parts.append(colorize(source_part, self.theme.source_color, self.theme.source_bg_color))
             
             padding = self.theme.source_width - len(source_part)
             if padding > 0:
@@ -86,7 +101,7 @@ class DefaultFormatter(Formatter):
             if padding > 0:
                 level_part += " " * padding
         
-        parts.append(colorize(level_part, self._level_color(entry.level)))
+        parts.append(colorize(level_part, self._level_color(entry.level), self._level_bg_color(entry.level)))
         parts.append(" ")
         
         # Message component with fixed width
@@ -168,7 +183,7 @@ class TimestampedFormatter(Formatter):
         
         # Source component
         if entry.source:
-            source_colored = colorize(entry.source, self.theme.source_color)
+            source_colored = colorize(entry.source, self.theme.source_color, self.theme.source_bg_color)
             parts.append(source_colored)
         
         # Level component

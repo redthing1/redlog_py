@@ -28,18 +28,18 @@ def main():
     # Demonstrate structured logging with fields
     print(f"\n--- Structured logging with fields ---")
     log.info(
-        "User login attempt", 
-        field("username", "alice"), 
-        field("ip_address", "192.168.1.100"), 
-        field("success", True)
+        "User login attempt",
+        field("username", "alice"),
+        field("ip_address", "192.168.1.100"),
+        field("success", True),
     )
 
     log.info(
-        "Data types example", 
-        field("string", "hello world"), 
-        field("integer", 42), 
+        "Data types example",
+        field("string", "hello world"),
+        field("integer", 42),
         field("float", 3.14159),
-        field("boolean", False)
+        field("boolean", False),
     )
 
     # Demonstrate scoped loggers
@@ -102,10 +102,10 @@ def main():
     set_level(Level.INFO)
     duration_us = int((end_time - start_time) * 1_000_000)
     log.info(
-        "Performance test completed", 
-        field("iterations", 10000), 
+        "Performance test completed",
+        field("iterations", 10000),
         field("total_time_us", duration_us),
-        field("avg_time_ns", duration_us * 1000 // 10000)
+        field("avg_time_ns", duration_us * 1000 // 10000),
     )
 
     # Show all levels with printf formatting
@@ -119,7 +119,7 @@ def main():
     log.info_f("Info: Processing batch %d of %d", 7, 10)
     log.verbose_f("Verbose: Thread pool has %d active workers", 8)
     log.trace_f("Trace: Function entry with parameter 0x%x", 0xDEADBEEF)
-    log.debug_f("Debug: Variable state - counter=%d, flag=%c", 42, ord('Y'))
+    log.debug_f("Debug: Variable state - counter=%d, flag=%c", 42, ord("Y"))
     log.pedantic_f("Pedantic: Detailed timing - %.3f seconds elapsed", 1.234567)
     log.annoying_f("Annoying: Buffer state - %o octal representation", 0o755)
 

@@ -8,6 +8,7 @@ from enum import IntEnum
 
 class Color(IntEnum):
     """ANSI color codes."""
+
     NONE = 0
     # Foreground colors
     RED = 31
@@ -46,10 +47,11 @@ class Color(IntEnum):
 @dataclass
 class Theme:
     """Theme configuration for visual appearance and layout.
-    
+
     Controls colors for different log levels and message components,
     as well as formatting layout parameters.
     """
+
     # Foreground colors for each log level
     critical_color: Color = Color.BRIGHT_MAGENTA
     error_color: Color = Color.RED
@@ -60,7 +62,7 @@ class Theme:
     debug_color: Color = Color.BRIGHT_BLACK
     pedantic_color: Color = Color.BRIGHT_BLACK
     annoying_color: Color = Color.BRIGHT_BLACK
-    
+
     # Background colors for each log level
     critical_bg_color: Color = Color.NONE
     error_bg_color: Color = Color.NONE
@@ -71,28 +73,28 @@ class Theme:
     debug_bg_color: Color = Color.NONE
     pedantic_bg_color: Color = Color.NONE
     annoying_bg_color: Color = Color.NONE
-    
+
     # Colors for message components
     source_color: Color = Color.CYAN
     source_bg_color: Color = Color.NONE
     message_color: Color = Color.WHITE
     field_key_color: Color = Color.BRIGHT_CYAN
     field_value_color: Color = Color.WHITE
-    
+
     # Layout configuration
-    source_width: int = 12        # Fixed width for source names
-    message_fixed_width: int = 44 # Fixed width for message field
-    pad_level_text: bool = True   # Pad level text for consistent alignment
+    source_width: int = 12  # Fixed width for source names
+    message_fixed_width: int = 44  # Fixed width for message field
+    pad_level_text: bool = True  # Pad level text for consistent alignment
 
 
 class _Themes:
     """Collection of predefined themes."""
-    
+
     @property
     def DEFAULT(self) -> Theme:
         """Default colorful theme."""
         return Theme()
-    
+
     @property
     def PLAIN(self) -> Theme:
         """Plain theme with no colors."""
@@ -130,10 +132,12 @@ themes = _Themes()
 def set_theme(theme: Theme) -> None:
     """Set the global theme."""
     from .core import _config
+
     _config.set_theme(theme)
 
 
 def get_theme() -> Theme:
     """Get the current global theme."""
     from .core import _config
+
     return _config.theme

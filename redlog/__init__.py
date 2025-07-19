@@ -21,37 +21,31 @@ __version__ = "0.1.0"
 __all__ = [
     # Core API
     "Level",
-    "Logger", 
+    "Logger",
     "get_logger",
     "set_level",
     "get_level",
-    
     # Fields
     "Field",
     "FieldSet",
-    
     # Themes
     "Theme",
-    "Color", 
+    "Color",
     "themes",
     "set_theme",
     "get_theme",
-    
     # Formatters
     "Formatter",
     "DefaultFormatter",
     "TimestampedFormatter",
     "JSONFormatter",
-    
     # Sinks
     "Sink",
-    "ConsoleSink", 
+    "ConsoleSink",
     "FileSink",
     "StringSink",
-    
     # Utilities
     "fmt",
-    
     # Additional exports
     "level_name",
     "level_short_name",
@@ -60,14 +54,14 @@ __all__ = [
 
 def field(key: str, value) -> Field:
     """Create a field for structured logging.
-    
+
     Args:
         key: Field name
         value: Field value (any type)
-        
+
     Returns:
         Field instance
-        
+
     Example:
         log.info("User action", field("user_id", 123), field("action", "login"))
     """
